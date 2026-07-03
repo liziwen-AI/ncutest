@@ -1,0 +1,133 @@
+
+
+
+
+ibstat
+# 在后台启动服务端
+ib_write_bw -d mlx5_0 & 
+# 在前台启动客户端测试
+ib_write_bw -d mlx5_0 localhost
+
+ib_write_bw -d mlx5_0 -a
+ib_write_bw -d ibp152s0 -a 10.42.122.60 
+
+服务端：ib_write_lat -d mlx5_0 -a
+客户端：ib_write_lat -d ibp152s0 -a 10.42.122.60
+
+nvidia-smi -q -d POWER
+
+# 查看 CPU 调度策略 (Governor)
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+# 实时监控 CPU 频率
+watch -n 1 "grep MHz /proc/cpuinfo"
+
+# 锁定 GPU 频率到最大值（比如 2610MHz，根据你的卡型号定）
+nvidia-smi -lgc 2610 
+
+
+
+git clone --filter=blob:none --sparse <仓库URL> # 仅克隆元数据，不下载文件内容
+cd <项目目录>
+git sparse-checkout set <指定文件夹路径> # 仅下载并显示该文件夹
+
+
+# ncu
+ncu --version
+ncu --check-target
+ncu --devices 0
+ncu --count 1 ./48_hopper_warp_specialized_gemm
+
+sudo modprobe nvidia NVreg_RestrictComputeConfigPermissions=0
+
+git clone https://github.com/NVIDIA/cutlass.git
+cd cutlass
+
+
+cd cutlass
+mkdir build && cd build
+
+cmake .. -DCUTLASS_NVCC_ARCHS=90a \
+         -DCUTLASS_ENABLE_EXAMPLES=ON \
+         -DCMAKE_BUILD_TYPE=Release
+
+make 48_hopper_warp_specialized_gemm -j$(nproc)
+
+
+ncu --target-processes all \
+    --set full \
+    -o gemm_profile \
+    ./examples/48_hopper_warp_specialized_gemm/48_hopper_warp_specialized_gemm
+
+
+error(
+cmake .. \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCMAKE_CUDA_ARCHITECTURES=90 \
+  -DCUTLASS_NVCC_ARCHS=90a \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCUTLASS_ENABLE_EXAMPLES=ON
+)
+
+cmake .. \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCUTLASS_NVCC_ARCHS=90a \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCUTLASS_ENABLE_EXAMPLES=ON
+
+cmake .. \
+  -DCUTLASS_NVCC_ARCHS=90a \
+  -DCMAKE_CUDA_COMPILER=$(which nvcc) \
+  -DCUTLASS_ENABLE_TESTS=ON \
+  -DCUTLASS_UNITY_BUILD_ENABLED=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+
+
+cmake .. \
+  -DCUTLASS_NVCC_ARCHS=90a \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCUTLASS_ENABLE_EXAMPLES=ON
+
+
+
+
+# 验证ncu命令，B200
+ncu --version
+git clone https://github.com/NVIDIA/cutlass.git
+cd cutlass
+mkdir build && cd build
+cmake .. \
+  -DCUTLASS_NVCC_ARCHS=100a \
+  -DCUTLASS_ENABLE_EXAMPLES=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+$(nproc)
+make -j8 70_blackwell_fp16_gemm
+./examples/70_blackwell_gemm/70_blackwell_fp16_gemm
+ncu --target-processes all \
+    ./examples/70_blackwell_gemm/70_blackwell_fp16_gemm
+
+# 验证ncu命令，B300
+ncu --version
+git clone https://github.com/NVIDIA/cutlass.git
+cd cutlass
+mkdir build && cd build
+cmake .. \
+  -DCUTLASS_NVCC_ARCHS=103a \
+  -DCUTLASS_ENABLE_EXAMPLES=ON \
+  -DCMAKE_BUILD_TYPE=Release
+make -j8 89_sm103_fp4_ultra_gemm
+./examples/89_sm103_fp4_ultra_gemm/89_sm103_fp4_ultra_gemm
+ncu --target-processes all \
+    ./examples/89_sm103_fp4_ultra_gemm/89_sm103_fp4_ultra_gemm
+ncu --target-processes all  89_sm103_fp4_ultra_gemm
+
+
+# ncu命令
+ncu ./my_cuda_program
+# 将结果保存为 my_profile.ncu-rep
+ncu -o my_profile ./my_cuda_program
+
+
