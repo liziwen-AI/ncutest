@@ -29,5 +29,5 @@ cmake --build .\
   --parallel 16
 
 
-sudo /usr/local/cuda-13.0/bin/ncu --target-processes all \
+# sudo /usr/local/cuda-13.0/bin/ncu --target-processes all \
 ./examples/72_blackwell_narrow_precision_gemm/72b_blackwell_nvfp4_nvfp4_gemm
