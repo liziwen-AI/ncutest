@@ -1,8 +1,8 @@
 
 
-# sudo apt update && sudo apt install -y cmake make build-essential git
-# git clone https://github.com/liziwen-AI/ncutest.git
-# . ncutest/command.sh
+sudo apt update && sudo apt install -y cmake make build-essential git
+git clone https://github.com/liziwen-AI/ncutest.git
+. ncutest/command.sh
 
 sudo apt-get install -y cuda-toolkit-13-0
 export PATH=/usr/local/cuda-13.0/bin${PATH:+:${PATH}}
@@ -11,7 +11,7 @@ export CUDA_HOME=/usr/local/cuda-13.0
 nvcc --version
 nvidia-smi
 
-cd ..
+
 git clone https://github.com/liziwen-AI/cutlass.git
 cd cutlass
 git checkout -f liz
