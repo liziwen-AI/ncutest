@@ -17,7 +17,7 @@ cd cutlass
 git checkout -f liz
 git branch
 
-mkdir build && cd build
+mkdir -p build && cd build
 cmake .. \
   -DCUTLASS_NVCC_ARCHS=100a \
   -DCUTLASS_ENABLE_TESTS=OFF \
