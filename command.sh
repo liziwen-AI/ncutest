@@ -8,8 +8,8 @@ sudo apt-get install -y cuda-toolkit-13-0
 export PATH=/usr/local/cuda-13.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-13.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export CUDA_HOME=/usr/local/cuda-13.0
-nvcc --version
-nvidia-smi
+# nvcc --version
+# nvidia-smi
 
 
 git clone https://github.com/liziwen-AI/cutlass.git
