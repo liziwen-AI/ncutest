@@ -16,9 +16,9 @@ export CUDA_HOME=/usr/local/cuda-13.0
 
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p $HOME/miniconda3
-# $HOME/miniconda3/bin/conda init bash
-conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
-conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+$HOME/miniconda3/bin/conda init bash
+$HOME/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+$HOME/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 eval "$($HOME/miniconda3/bin/conda shell.bash hook)"
 conda create -n py312 python=3.12 -y
